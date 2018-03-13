@@ -35,8 +35,8 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -60,10 +60,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('chat') }}"
                                aria-haspopup="true" aria-expanded="false">
-                                Guest Book <span class="caret"></span>
+                                Chat <span class="caret"></span>
                             </a>
                         </li>
-                    @endguest
+                        @endguest
                 </ul>
             </div>
         </div>

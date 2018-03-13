@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">{{ $title }}</h2>
-
-        <form class="form-horizontal col align-self-center" method="post">
+        <form class="form-horizontal col align-self-center" action="{{ route('create-message') }}" method="POST">
+            @csrf
             <div class="form-group">
-                <label for="comment">Message</label>
-                <textarea class="form-control" rows="3" id="comment"></textarea>
+                <label for="message">Message</label>
+                <textarea class="form-control" rows="3" id="message" name="message"></textarea>
             </div>
             <button type="submit" class="btn btn-default">Send</button>
         </form>
@@ -18,14 +18,29 @@
         </div>
 
         @foreach($messages as $message)
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{ $message->user }}</h3>
-                    <p class="text-left">{{ $message->user }}</p>
-                    <p class="text-right">{{ $message->created_at }}</p>
+            @if($message->user->id === Auth::user()->id)
+                <div class="card bg-info text-white">
+                    <div class="card-header">
+                        <h3>{{ $message->user->name }}</h3>
+                        <p class="text-right">{{ $message->created_at }}</p>
+                    </div>
+                    <div class="card-body">{{ $message->message }}</div>
                 </div>
-                <div class="panel-body">{{ $message->message }}</div>
-            </div>
+            @else
+                <div class="card">
+                    <div class="card-header">
+                        <h3>{{ $message->user->name }}</h3>
+                        <p class="text-right">{{ $message->created_at }}</p>
+                    </div>
+                    <div class="card-body">{{ $message->message }}</div>
+                </div>
+            @endif
         @endforeach
+
+        <br>
+
+        <div class="text-center">
+            {!! $messages->render() !!}
+        </div>
     </div>
 @endsection
