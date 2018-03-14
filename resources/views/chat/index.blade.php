@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @auth
     <div class="container">
         <h2 class="text-center">{{ $title }}</h2>
         <form class="form-horizontal col align-self-center" action="{{ route('create-message') }}" method="POST">
@@ -42,5 +43,8 @@
         <div class="text-center">
             {!! $messages->render() !!}
         </div>
+
+        <test-component></test-component>
     </div>
+    @endauth
 @endsection
