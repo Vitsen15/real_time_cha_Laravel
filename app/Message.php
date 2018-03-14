@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Message extends Model
 {
+    protected $fillable = ['message', 'user_id'];
+
     /**
      * Get the user for the blog post.
      */
