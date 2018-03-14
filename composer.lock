@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2ed78010d9ec87c6b6905d3c9e4dc51",
-    "content-hash": "b4e009c51c6c3a643edc73591f799074",
+    "hash": "46d6c166c38b57ca5ee9068035011cc4",
+    "content-hash": "f83b9aedd63d6853fce6d526dfa6fbc4",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1303,6 +1303,58 @@
                 "shell"
             ],
             "time": "2017-12-28 16:14:16"
+        },
+        {
+            "name": "pusher/pusher-php-server",
+            "version": "dev-new-lib",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pusher/pusher-http-php.git",
+                "reference": "6d1977e95cd814b084c2af49319630ee5f34f369"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/6d1977e95cd814b084c2af49319630ee5f34f369",
+                "reference": "6d1977e95cd814b084c2af49319630ee5f34f369",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.x"
+            },
+            "suggest": {
+                "ext-curl": "Pusher will use a different HTTP adapter if cURL is present"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-new-lib": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pusher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Client code for the REST API",
+            "homepage": "https://github.com/pusher/pusher-http-php/",
+            "keywords": [
+                "http",
+                "pusher",
+                "rest",
+                "web service"
+            ],
+            "time": "2016-04-05 10:38:46"
         },
         {
             "name": "ramsey/uuid",
