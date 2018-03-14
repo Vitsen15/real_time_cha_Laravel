@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -15,8 +14,36 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('message', require('./components/MessageComponent.vue'));
+Vue.component('sent-message', require('./components/SendMessageComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        messages: []
+    },
+    mounted() {
+        console.log(this.fetchMessages());
+        this.fetchMessages();
+        Echo.private('chat')
+            .listen('MessageSentEvent', (e) => {
+                this.messages.push({
+                    message: e.message.message,
+                    user: e.user
+                })
+            })
+    },
+    methods: {
+        addMessage(message) {
+            this.messages.push(message);
+            axios.post('/messages', message).then(response => {
+                console.log(response)
+            });
+        },
+        fetchMessages() {
+            axios.get('/messages').then(response => {
+                this.messages = response.data
+            });
+        }
+    }
 });
