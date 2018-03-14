@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // chat routes
 Route::get('/chat', 'ChatController@index')->name('chat');
-Route::post('/chat', 'ChatController@store')->name('create-message');
+Route::get('/messages', 'ChatController@fetch');
+Route::post('/messages', 'ChatController@sendMessage');

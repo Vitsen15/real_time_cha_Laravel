@@ -2,41 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSentEvent;
 use App\Message;
-use Illuminate\Http\Request;
 use Auth;
 
 class ChatController extends Controller
 {
+    public function __call($method, $parameters)
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $data = [
-            'title' => 'Hi ' . Auth::user()->name,
-            'messages' => Message::latest()->paginate(5),
-            'messagesCount' => Message::count(),
-        ];
+        return view('chat.index');
+    }
 
-        return view('chat.index', $data);
+    public function fetch()
+    {
+        return Message::with('user')->get();
+//        $data = [
+//            'title' => 'Hi ' . Auth::user()->name,
+//            'messages' => Message::latest()->paginate(5),
+//            'messagesCount' => Message::count(),
+//        ];
+//
+//        return view('chat.index', $data);
     }
 
     /**
      * Create a new message instance.
-     *
-     * @param  Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function sendMessage()
     {
         // Validate the request...
 
-        $message = new Message();
+        $user = Auth::user();
 
-        $message->message = $request->input('message');
+        $message = $user->messages()->create([
+            'message' => request()->message
+        ]);
 
-        $message->user_id = Auth::user()->id;
+        broadcast(new MessageSentEvent($user, $message));
 
-        $message->save();
-
-        return redirect()->action('ChatController@index');
+//        $message = new Message();
+//
+//        $message->message = $request->input('message');
+//
+//        $message->user_id = Auth::user()->id;
+//
+//        $message->save();
+//
+//        return redirect()->action('ChatController@index');
     }
 }
