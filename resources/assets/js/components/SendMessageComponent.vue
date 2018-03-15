@@ -1,8 +1,8 @@
 <template>
-    <form class="form-horizontal col align-self-center" @submit.prevent.keyup="sent">
+    <form @submit.prevent.keyup="sent" class="form-horizontal col align-self-center">
         <div class="form-group">
             <label for="message">Message</label>
-            <textarea class="form-control" rows="3" id="message" v-model="message.message" placeholder="Enter the message"></textarea>
+            <textarea class="form-control" rows="3" id="message" v-model="message.message"> placeholder="Enter the message"></textarea>
         </div>
         <button type="submit" class="btn btn-default">Send</button>
     </form>
@@ -20,9 +20,9 @@
             }
         },
         methods: {
-            sent() {
+            sent () {
                 this.$emit('messagesent', this.message);
-                this.message = {};
+                this.message = {}
             }
         }
     }
