@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46d6c166c38b57ca5ee9068035011cc4",
-    "content-hash": "f83b9aedd63d6853fce6d526dfa6fbc4",
+    "hash": "6b60b8445fee2d530057282602442706",
+    "content-hash": "544a773897b6978cc31e681d61e5866f",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1306,35 +1306,29 @@
         },
         {
             "name": "pusher/pusher-php-server",
-            "version": "dev-new-lib",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pusher/pusher-http-php.git",
-                "reference": "6d1977e95cd814b084c2af49319630ee5f34f369"
+                "reference": "03d3417748fc70a889c97271e25e282ff1ff0ae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/6d1977e95cd814b084c2af49319630ee5f34f369",
-                "reference": "6d1977e95cd814b084c2af49319630ee5f34f369",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/03d3417748fc70a889c97271e25e282ff1ff0ae3",
+                "reference": "03d3417748fc70a889c97271e25e282ff1ff0ae3",
                 "shasum": ""
             },
             "require": {
-                "ext-json": "*",
-                "php": ">=5.3.3"
+                "ext-curl": "*",
+                "php": "^5.4 || ^7.0"
             },
             "require-dev": {
-                "ext-curl": "*",
-                "phpdocumentor/phpdocumentor": "2.*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.x"
-            },
-            "suggest": {
-                "ext-curl": "Pusher will use a different HTTP adapter if cURL is present"
+                "phpunit/phpunit": "^4.8 || ^5.7"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-new-lib": "3.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1346,15 +1340,21 @@
             "license": [
                 "MIT"
             ],
-            "description": "Client code for the REST API",
-            "homepage": "https://github.com/pusher/pusher-http-php/",
+            "description": "Library for interacting with the Pusher REST API",
             "keywords": [
-                "http",
+                "events",
+                "messaging",
+                "php-pusher-server",
+                "publish",
+                "push",
                 "pusher",
+                "real time",
+                "real-time",
+                "realtime",
                 "rest",
-                "web service"
+                "trigger"
             ],
-            "time": "2016-04-05 10:38:46"
+            "time": "2017-10-20 11:18:01"
         },
         {
             "name": "ramsey/uuid",
