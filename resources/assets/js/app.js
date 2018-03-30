@@ -19,30 +19,34 @@ Vue.component('sent-message', require('./components/SendMessageComponent.vue'));
 
 const app = new Vue({
     el: '#app',
-    data: {
-        messages: []
+    data() {
+        return {
+            messages: []
+        }
     },
     mounted() {
-        console.log(this.fetchMessages());
         this.fetchMessages();
-        Echo.private('chat')
-            .listen('MessageSentEvent', (e) => {
+        window.Pusher.logToConsole = true;
+
+        window.Echo.private('chat')
+            .listen(".App.Events.MessageSentEvent", function (e) {
                 this.messages.push({
                     message: e.message.message,
                     user: e.user
-                })
-            })
+                });
+                console.log('hui');
+            });
     },
+
     methods: {
         addMessage(message) {
             this.messages.push(message);
-            axios.post('/messages', message).then(response => {
-                console.log(response)
-            });
+            axios.post('/messages', message);
         },
+
         fetchMessages() {
             axios.get('/messages').then(response => {
-                this.messages = response.data
+                this.messages = response.data;
             });
         }
     }

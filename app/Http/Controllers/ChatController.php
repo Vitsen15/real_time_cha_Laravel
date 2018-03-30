@@ -21,39 +21,20 @@ class ChatController extends Controller
     public function fetch()
     {
         return Message::with('user')->get();
-//        $data = [
-//            'title' => 'Hi ' . Auth::user()->name,
-//            'messages' => Message::latest()->paginate(5),
-//            'messagesCount' => Message::count(),
-//        ];
-//
-//        return view('chat.index', $data);
     }
 
     /**
      * Create a new message instance.
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function sendMessage()
     {
-        // Validate the request...
-
         $user = Auth::user();
-
         $message = $user->messages()->create([
             'message' => request()->message
         ]);
 
-        broadcast(new MessageSentEvent($user, $message));
+        broadcast(new MessageSentEvent($message, $user))->toOthers();
 
-//        $message = new Message();
-//
-//        $message->message = $request->input('message');
-//
-//        $message->user_id = Auth::user()->id;
-//
-//        $message->save();
-//
-//        return redirect()->action('ChatController@index');
+        return ['status' => 'Message Sent!'];
     }
 }
