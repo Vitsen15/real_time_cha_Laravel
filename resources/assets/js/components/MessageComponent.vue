@@ -15,11 +15,6 @@
 <script>
     export default {
         props: ['messages'],
-
-        mounted() {
-            console.log('messages: ', this.messages);
-
-        }
     }
 </script>
 
