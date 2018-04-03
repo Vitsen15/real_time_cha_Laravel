@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\MessageSentEvent;
 use App\Message;
 use Auth;
+use JavaScript;
 
 class ChatController extends Controller
 {
@@ -15,6 +16,10 @@ class ChatController extends Controller
 
     public function index()
     {
+        JavaScript::put([
+            'user' => json_decode(Auth::user())
+        ]);
+
         return view('chat.index');
     }
 
