@@ -14,8 +14,8 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('message', require('./components/MessageComponent.vue'));
-Vue.component('sent-message', require('./components/SendMessageComponent.vue'));
+Vue.component('message', require('./components/messages/MessageComponent.vue'));
+Vue.component('sent-message', require('./components/messages/SendMessageComponent.vue'));
 
 const app = new Vue({
     el: '#app',
