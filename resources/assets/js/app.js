@@ -19,6 +19,7 @@ Vue.component('sent-message', require('./components/SendMessageComponent.vue'));
 
 const app = new Vue({
     el: '#app',
+
     data() {
         return {
             messages: []
@@ -26,15 +27,13 @@ const app = new Vue({
     },
     mounted() {
         this.fetchMessages();
-        window.Pusher.logToConsole = true;
 
         window.Echo.private('chat')
-            .listen(".App.Events.MessageSentEvent", function (e) {
+            .listen("MessageSentEvent", (e) => {
                 this.messages.push({
                     message: e.message.message,
                     user: e.user
                 });
-                console.log('hui');
             });
     },
 
