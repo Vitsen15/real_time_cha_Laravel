@@ -16,37 +16,8 @@ window.Vue = require('vue');
 
 Vue.component('message', require('./components/messages/MessageComponent.vue'));
 Vue.component('sent-message', require('./components/messages/SendMessageComponent.vue'));
+Vue.component('chat-component', require('./components/messages/ChatComponent'));
 
 const app = new Vue({
     el: '#app',
-
-    data() {
-        return {
-            messages: []
-        }
-    },
-    mounted() {
-        this.fetchMessages();
-
-        window.Echo.private('chat')
-            .listen("MessageSentEvent", (e) => {
-                this.messages.push({
-                    message: e.message.message,
-                    user: e.user
-                });
-            });
-    },
-
-    methods: {
-        addMessage(message) {
-            this.messages.push(message);
-            axios.post('/messages', message);
-        },
-
-        fetchMessages() {
-            axios.get('/messages').then(response => {
-                this.messages = response.data;
-            });
-        }
-    }
 });
