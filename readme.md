@@ -37,6 +37,14 @@ Type following command:
 php artisan migrate
 ~~~
 
+### Make public files accessible from the web. You should create a symbolic link from public/storage to storage/app/public.
+
+Type following command for it:
+
+~~~
+php artisan storage:link
+~~~
+
 ### Config .env file
 
 In order for this project to work, you must configure the .env file, or rather its specific sections:

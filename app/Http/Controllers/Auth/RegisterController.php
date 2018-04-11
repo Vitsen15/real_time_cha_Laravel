@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
 use App\Http\Controllers\Controller;
+use App\User;
+use File;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Storage;
 
 class RegisterController extends Controller
 {
@@ -43,7 +46,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -52,13 +55,14 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'image' => 'image|max:10240|mimes:jpeg, png, gif',
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -68,5 +72,21 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * @inheritdoc
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    protected function registered(Request $request, $user)
+    {
+        $file = $request->file('avatar');
+        $filename = $user->name . '-' . $user->id . '.' . $file->extension();
+
+        if ($file) {
+            Storage::disk('local')->put('public/avatars/' . $filename, File::get($file));
+            $user->img_url = 'avatars/' . $filename;
+            $user->save();
+        }
     }
 }
