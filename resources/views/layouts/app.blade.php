@@ -35,8 +35,8 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                    <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                    <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                        <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                        <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -45,6 +45,9 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    Profile
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -63,7 +66,7 @@
                                 Chat <span class="caret"></span>
                             </a>
                         </li>
-                        @endguest
+                    @endguest
                 </ul>
             </div>
         </div>
