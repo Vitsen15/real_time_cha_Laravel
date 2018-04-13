@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-class HomeController extends Controller
+use Auth;
+
+class ProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,6 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        $avatarUrl = 'storage/' . Auth::user()->img_url;
+
+        $data = [
+            'avatarUrl' => $avatarUrl,
+            'name' => Auth::user()->name
+        ];
+
+        return view('user.profile', $data);
     }
 }
