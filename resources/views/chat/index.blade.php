@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <chat-component></chat-component>
+    <router-view></router-view>
 @endsection
