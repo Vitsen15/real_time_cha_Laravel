@@ -73033,7 +73033,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73050,9 +73050,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "SettingsComponent"
+    name: "SettingsComponent",
+
+    data: function data() {
+        return {
+            avatar: ''
+        };
+    },
+
+
+    methods: {
+        handleFileUpload: function handleFileUpload() {
+            this.avatar = this.$refs.avatar.files[0];
+            console.log(this.avatar);
+        },
+        submitFile: function submitFile() {
+            var formData = new FormData();
+
+            formData.append('avatar', this.avatar);
+
+            axios.post('/change-avatar', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function () {
+                console.log('SUCCESS!!');
+            }).catch(function () {
+                console.log('FAILURE!!');
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -73063,18 +73100,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "settings" }, [
-      _c("h2", [_vm._v("Settings")])
+  return _c("div", { staticClass: "settings" }, [
+    _c("h2", [_vm._v("Settings")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "profile-avatar-change" }, [
+      _c("label", { attrs: { for: "avatar" } }, [
+        _vm._v("Change avatar\n            "),
+        _c("input", {
+          ref: "avatar",
+          attrs: { type: "file", id: "avatar", accept: "image/*" },
+          on: {
+            change: function($event) {
+              _vm.handleFileUpload()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          on: {
+            click: function($event) {
+              _vm.submitFile()
+            }
+          }
+        },
+        [_vm._v("Change avatar")]
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

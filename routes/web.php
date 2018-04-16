@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// profile routes
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::post('/change-avatar', 'ProfileController@changeAvatar');
 
 // chat routes
 Route::group(['middleware' => ['auth']], function () {
