@@ -1,11 +1,8 @@
 <template>
     <div class="col-md-3 profile-sidebar">
-        <!-- SIDEBAR USERPIC -->
         <div class="profile-userpic">
-            <img :src=avatar class="img-responsive" :alt=name>
+            <img :src="avatar" class="img-responsive" :alt="name">
         </div>
-        <!-- END SIDEBAR USERPIC -->
-        <!-- SIDEBAR USER TITLE -->
         <div class="profile-usertitle">
             <div class="profile-usertitle-name">
                 {{ name }}

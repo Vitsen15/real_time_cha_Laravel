@@ -12,20 +12,20 @@
 </template>
 
 <script>
-    // import AvatarComponent from './AvatarComponent';
     import ProfileSidebarComponent from './ProfileSidebarComponent';
 
     export default {
         name: "ProfileComponent",
 
-        props: ['avatar', 'name'],
-
         components: {
             'profile-sidebar': ProfileSidebarComponent
         },
 
-        mounted() {
-            console.log('hui');
+        data() {
+            return {
+                avatar: window.avatarUrl,
+                name: window.name
+            }
         }
     }
 </script>

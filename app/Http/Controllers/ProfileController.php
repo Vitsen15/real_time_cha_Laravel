@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use JavaScript;
 
 class ProfileController extends Controller
 {
@@ -25,11 +26,11 @@ class ProfileController extends Controller
     {
         $avatarUrl = 'storage/' . Auth::user()->img_url;
 
-        $data = [
+        JavaScript::put([
             'avatarUrl' => $avatarUrl,
             'name' => Auth::user()->name
-        ];
+        ]);
 
-        return view('user.profile', $data);
+        return view('user.profile');
     }
 }
