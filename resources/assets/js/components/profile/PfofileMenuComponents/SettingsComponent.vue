@@ -8,6 +8,9 @@
             </label>
 
             <button v-on:click="submitFile()">Change avatar</button>
+            <div v-if="responseErrors" v-for="error in responseErrorMessages">
+                <p>{{ error }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -18,14 +21,16 @@
 
         data() {
             return {
-                avatar: ''
+                avatar: '',
+                responseErrors: false,
+                responseErrorMessages: []
+
             }
         },
 
         methods: {
             handleFileUpload() {
                 this.avatar = this.$refs.avatar.files[0];
-                console.log(this.avatar);
             },
 
             submitFile() {
@@ -40,10 +45,22 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     }
-                ).then(function () {
-                    console.log('SUCCESS!!');
-                }).catch(function () {
-                    console.log('FAILURE!!');
+                ).then((response) => {
+                    this.responseErrors = false;
+                    //handle success uploading
+                }).catch((data) => {
+                    let response = data.response.data;
+
+                    switch (response.status) {
+                        case 'saving_error':
+                            this.responseErrorMessages.push('Error while saving!');
+                            break;
+                        case 'validation_error':
+                            this.responseErrorMessages = response.errors.avatar;
+                            break;
+                    }
+
+                    this.responseErrors = true;
                 });
             }
         }

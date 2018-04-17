@@ -73033,7 +73033,7 @@ exports = module.exports = __webpack_require__(8)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73058,13 +73058,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "SettingsComponent",
 
     data: function data() {
         return {
-            avatar: ''
+            avatar: '',
+            responseErrors: false,
+            responseErrorMessages: []
+
         };
     },
 
@@ -73072,9 +73078,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         handleFileUpload: function handleFileUpload() {
             this.avatar = this.$refs.avatar.files[0];
-            console.log(this.avatar);
         },
         submitFile: function submitFile() {
+            var _this = this;
+
             var formData = new FormData();
 
             formData.append('avatar', this.avatar);
@@ -73083,10 +73090,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }).then(function () {
-                console.log('SUCCESS!!');
-            }).catch(function () {
-                console.log('FAILURE!!');
+            }).then(function (response) {
+                _this.responseErrors = false;
+                //handle success uploading
+            }).catch(function (data) {
+                var response = data.response.data;
+
+                switch (response.status) {
+                    case 'saving_error':
+                        _this.responseErrorMessages.push('Error while saving!');
+                        break;
+                    case 'validation_error':
+                        _this.responseErrorMessages = response.errors.avatar;
+                        break;
+                }
+
+                _this.responseErrors = true;
             });
         }
     }
@@ -73103,32 +73122,43 @@ var render = function() {
   return _c("div", { staticClass: "settings" }, [
     _c("h2", [_vm._v("Settings")]),
     _vm._v(" "),
-    _c("div", { staticClass: "profile-avatar-change" }, [
-      _c("label", { attrs: { for: "avatar" } }, [
-        _vm._v("Change avatar\n            "),
-        _c("input", {
-          ref: "avatar",
-          attrs: { type: "file", id: "avatar", accept: "image/*" },
-          on: {
-            change: function($event) {
-              _vm.handleFileUpload()
+    _c(
+      "div",
+      { staticClass: "profile-avatar-change" },
+      [
+        _c("label", { attrs: { for: "avatar" } }, [
+          _vm._v("Change avatar\n            "),
+          _c("input", {
+            ref: "avatar",
+            attrs: { type: "file", id: "avatar", accept: "image/*" },
+            on: {
+              change: function($event) {
+                _vm.handleFileUpload()
+              }
             }
-          }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            on: {
+              click: function($event) {
+                _vm.submitFile()
+              }
+            }
+          },
+          [_vm._v("Change avatar")]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.responseErrorMessages, function(error) {
+          return _vm.responseErrors
+            ? _c("div", [_c("p", [_vm._v(_vm._s(error))])])
+            : _vm._e()
         })
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              _vm.submitFile()
-            }
-          }
-        },
-        [_vm._v("Change avatar")]
-      )
-    ])
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []

@@ -42,7 +42,7 @@ class ProfileController extends Controller
 
     /**
      * @param Request $request
-     * @return string
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function changeAvatar(Request $request)
@@ -52,7 +52,8 @@ class ProfileController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return $validator->errors();
+            $content = json_encode(['status' => 'validation_error', 'errors' => $validator->errors()]);
+            return response($content, 400);
         }
 
         $user = Auth::user();
@@ -71,6 +72,10 @@ class ProfileController extends Controller
             Storage::disk('local')->put('public/avatars/' . $newAvatarName, File::get($newAvatar));
             $user->img_url = 'avatars/' . $newAvatarName;
             $user->save();
+
+            return response(json_encode(['status' => 'success']), 200);
+        } else {
+            return response(json_encode(['status' => 'saving_error']), 500);
         }
     }
 }
